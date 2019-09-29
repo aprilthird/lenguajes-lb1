@@ -24,5 +24,24 @@ namespace LENGUAJES.LB1.Helpers
                     return ConsoleColor.Gray;
             }
         }
+
+        public static Color ToColor(this string str)
+        {
+            switch(str)
+            {
+                case "red":
+                    return Color.Red;
+                case "yellow":
+                    return Color.Yellow;
+                case "green":
+                    return Color.Green;
+                case "blue":
+                    return Color.Blue;
+                case "gray":
+                    return Color.Gray;
+                default:
+                    return Color.Gray;
+            }
+        }
     }
 }

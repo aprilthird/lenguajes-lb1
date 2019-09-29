@@ -1,47 +1,30 @@
 ﻿using LENGUAJES.LB1.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace LENGUAJES.LB1.Entities
 {
     public class BattleBox
     {
-        private int width;
-        private int height;
-        private Color color;
-        private Material material;
         private List<Robot> robots;
         private List<Obstacle> obstacles;
 
-        public int Width
-        {
-            get { return width; }
-        }
+        public int Width { get; set; }
 
-        public int Height
-        {
-            get { return height; }
-        }
+        public int Height { get; set; }
 
-        public Color Color
-        {
-            get { return color; }
-            set { color = value; }
-        }
+        public Color Color { get; set; }
 
-        public Material Material
-        {
-            get { return material; }
-            set { material = value; }
-        }
+        public Material Material { get; set; }
 
         public BattleBox(Color color = Color.Gray, Material material = Material.Steel)
         {
-            this.color = color;
-            this.material = material;
-            this.width = ConstantHelpers.MAP.MAX_X;
-            this.height = ConstantHelpers.MAP.MAX_Y;
+            this.Color = color;
+            this.Material = material;
+            this.Width = ConstantHelpers.MAP.MAX_X;
+            this.Height = ConstantHelpers.MAP.MAX_Y;
             this.robots = new List<Robot>();
             this.obstacles = new List<Obstacle>();
         }
@@ -54,9 +37,13 @@ namespace LENGUAJES.LB1.Entities
             robots.Add(robot2);
         }
 
-        public void GenerateRobot(string name, float weight, float size, int lifesQty, Helpers.Color color)
+        public void GenerateRobot(string name, float weight, float size, int lifesQty, Helpers.Color color, int? posX = null, int? posY = null)
         {
             var robot = new Robot(name, weight, size, lifesQty, color);
+            if (posX.HasValue)
+                robot.Position.X = posX.Value;
+            if (posY.HasValue)
+                robot.Position.Y = posY.Value;
             robots.Add(robot);
         }
 
@@ -93,9 +80,9 @@ namespace LENGUAJES.LB1.Entities
                 Console.Write(i);
             }
 
-            for (var i = 0; i < width; ++i)
+            for (var i = 0; i < Width; ++i)
             {
-                for (var j = 0; j < height; ++j)
+                for (var j = 0; j < Height; ++j)
                 {
                     Console.SetCursorPosition(i * 3 + 3, j * 2 + 2);
                     Console.ForegroundColor = ConsoleColor.Gray;

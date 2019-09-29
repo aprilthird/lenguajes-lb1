@@ -7,79 +7,49 @@ namespace LENGUAJES.LB1.Entities
 {
     public class Robot
     {
-        private string name;
-        private float weight;
-        private float size;
-        private int lifesQty;
-        private Color color;
-        private Point position;
+        public string Name { get; set; }
 
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
+        public float Weight { get; set; }
 
-        public float Weight
-        {
-            get { return weight; }
-            set { weight = value; }
-        }
+        public float Size { get; set; }
 
-        public float Size
-        {
-            get { return size; }
-            set { size = value; }
-        }
+        public int LifesQty { get; set; }
 
-        public int LifesQty
-        {
-            get { return lifesQty; }
-            set { lifesQty = value; }
-        }
+        public Color Color { get; set; }
 
-        public Color Color
-        {
-            get { return color; }
-            set { color = value; }
-        }
-
-        public Point Position
-        {
-            get { return position; }
-        }
+        public Point Position { get; private set; }
 
         public Robot(string name, float weight, float size, int lifesQty, Color color)
         {
-            this.name = name;
-            this.weight = weight;
-            this.size = size;
-            this.lifesQty = lifesQty;
-            this.color = color;
+            this.Name = name;
+            this.Weight = weight;
+            this.Size = size;
+            this.LifesQty = lifesQty;
+            this.Color = color;
             var r = new Random();
-            this.position = new Point(r.Next(0, ConstantHelpers.MAP.MAX_X), r.Next(0, ConstantHelpers.MAP.MAX_Y));
+            this.Position = new Point(r.Next(0, ConstantHelpers.MAP.MAX_X), r.Next(0, ConstantHelpers.MAP.MAX_Y));
         }
 
         public Robot(string name, float weight, float size, int lifesQty, Color color, Point position)
-            => (this.name, this.weight, this.size, this.lifesQty, this.color, this.position) 
+            => (this.Name, this.Weight, this.Size, this.LifesQty, this.Color, this.Position) 
                 = (name, weight, size, lifesQty, color, position);
 
         public void Move(int posX, int posY)
         {
-            this.position = new Point(posX, posY);
+            this.Position = new Point(posX, posY);
         }
 
         public void ReceiveDamage(int damage)
         {
-            this.lifesQty -= damage;
+            this.LifesQty -= damage;
         }
 
         public void Hit(Robot enemyRobot)
         {
-            var damage = (weight >= 35) ? 2 : 1;
+            var damage = (Weight >= 35) ? 2 : 1;
             enemyRobot.ReceiveDamage(damage);
         }
 
-        public override string ToString() => $"Nombre: {name}\nPeso: {weight}\nVidas: {lifesQty}\nPosición: ({position.X}, {position.Y})";
+        public override string ToString() => $"Nombre: {Name}\nPeso: {Weight}\nVidas: {LifesQty}\nPosición: ({Position.X}, {Position.Y})";
     }
 }

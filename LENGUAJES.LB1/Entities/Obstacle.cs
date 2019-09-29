@@ -7,66 +7,38 @@ namespace LENGUAJES.LB1.Entities
 {
     public class Obstacle
     {
-        private string name;
-        private float weight;
-        private int damage;
-        private Point position;
-        private Color color;
-        private bool isOn = false;
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-        public float Weight
-        {
-            get { return weight; }
-            set { weight = value; }
-        }
+        public string Name { get; set; }
+        public float Weight { get; set; }
 
-        public int Damage
-        {
-            get { return damage; }
-            set { damage = value; }
-        }
+        public int Damage { get; set; }
 
-        public Color Color
-        {
-            get { return color; }
-            set { color = value; }
-        }
+        public Color Color { get; set; }
 
-        public Point Position
-        {
-            get { return position; }
-        }
+        public Point Position { get; }
 
-        public bool IsOn
-        {
-            get { return isOn; }
-        }
+        public bool IsOn { get; private set; } = false;
 
         public Obstacle(string name, float weight, int damage, Color color)
         {
-            this.name = name;
-            this.weight = weight;
-            this.damage = damage;
-            this.color = color;
+            this.Name = name;
+            this.Weight = weight;
+            this.Damage = damage;
+            this.Color = color;
             var r = new Random();
-            this.position = new Point(r.Next(0, ConstantHelpers.MAP.MAX_X), r.Next(0, ConstantHelpers.MAP.MAX_Y));
+            this.Position = new Point(r.Next(0, ConstantHelpers.MAP.MAX_X), r.Next(0, ConstantHelpers.MAP.MAX_Y));
         }
 
         public Obstacle(string name, float weight, int damage, Color color, Point position)
-            => (this.name, this.weight, this.damage, this.color, this.position)
+            => (this.Name, this.Weight, this.Damage, this.Color, this.Position)
                 = (name, weight, damage, color, position);
 
         public void Hit(Robot robot)
         {
-            robot.ReceiveDamage(damage);
+            robot.ReceiveDamage(Damage);
         }
 
-        public void On() => isOn = true;
+        public void On() => IsOn = true;
 
-        public void Off() => isOn = false;
+        public void Off() => IsOn = false;
     }
 }
