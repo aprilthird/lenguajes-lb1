@@ -42,9 +42,12 @@ namespace LENGUAJES.LB1
         {
             Console.Clear();
             battleBox.DrawAll();
-            Console.SetCursorPosition(0, Helpers.ConstantHelpers.MAP.MAX_Y*2 + 1);
-            Console.WriteLine("\nPresione [+] para agregar robot...");
-            Console.WriteLine("\nPresione [ESC] para salir...");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(0, Helpers.ConstantHelpers.MAP.MAX_Y*2 + 2);
+            Console.WriteLine("Presione [ESC] para salir...");
+            Console.WriteLine("Presione [+] para agregar robot...");
+            Console.WriteLine("Presione [->] para simular el siguiente movimiento...");
+            Console.WriteLine("=== Log ===");
             var key2 = Console.ReadKey();
             switch (key2.Key)
             {
@@ -59,7 +62,7 @@ namespace LENGUAJES.LB1
                     float.TryParse(Console.ReadLine(), out float size);
                     Console.Write("Ingrese el # de vidas: ");
                     int.TryParse(Console.ReadLine(), out int lifes);
-                    Console.Write("Ingrese el color (red/yellow/green/blue/gray): ");
+                    Console.Write("Ingrese el color (red/yellow/green/blue/gray/magenta/cyan/darkred/darkblue/darkyellow/darkcyan/darkmagenta/darkgreen): ");
                     var color = Console.ReadLine().ToColor();
                     var rand = new Random();
                     Console.Write($"Ingrese la posición X [de 0 a {ConstantHelpers.MAP.MAX_X - 1}] (vacío para que se genere aleatoriamente): ");
@@ -72,6 +75,11 @@ namespace LENGUAJES.LB1
                     Console.WriteLine("Robot Agregado...");
                     Console.WriteLine("Presione una tecla para regresar al juego");
                     Console.ReadKey();
+                    StartGame(battleBox);
+                    break;
+                case ConsoleKey.RightArrow:
+                    battleBox.MoveAll();
+                    battleBox.CheckForCollisions();
                     StartGame(battleBox);
                     break;
                 case ConsoleKey.Escape:

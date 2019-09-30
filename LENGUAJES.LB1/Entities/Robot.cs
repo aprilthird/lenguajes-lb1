@@ -19,6 +19,8 @@ namespace LENGUAJES.LB1.Entities
 
         public Point Position { get; private set; }
 
+        public int Damage => (Weight >= 35) ? 2 : 1;
+
         public Robot(string name, float weight, float size, int lifesQty, Color color)
         {
             this.Name = name;
